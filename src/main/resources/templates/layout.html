@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page(title, content)">
+<head>
+  <meta charset="utf-8">
+  <title th:text="${title} + ' · Aerosend'">Aerosend</title>
+  <link rel="stylesheet" th:href="@{/dist/app.css}">
+</head>
+<body>
+  <nav class="topnav">
+    <a th:href="@{/}">Dashboard</a>
+    <a th:href="@{/domains}">Domains</a>
+    <a th:href="@{/mailboxes}">Mailboxes</a>
+    <a th:href="@{/integrations}">Sequencers</a>
+  </nav>
+  <main th:replace="${content}"></main>
+  <script type="module" th:src="@{/dist/main.js}"></script>
+</body>
+</html>

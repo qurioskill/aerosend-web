@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page(title='Dashboard', content=~{::main})}">
+<main>
+  <h1>Deliverability overview</h1>
+  <p><strong th:text="${#lists.size(domains)}">0</strong> domains,
+     <strong th:text="${atRisk}">0</strong> at risk of burning.</p>
+  <ul class="domain-list">
+    <li th:each="d : ${domains}">
+      <a th:href="@{/domains/{id}(id=${d.id})}" th:text="${d.name}">example.com</a>
+      <div data-vue="BurnStatusBadge" th:attr="data-status=${d.burnStatus}"></div>
+    </li>
+  </ul>
+</main>
+</html>

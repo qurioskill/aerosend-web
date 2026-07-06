@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: aerosend-web
+  thymeleaf:
+    cache: false
+aerosend:
+  core-api:
+    base-url: http://localhost:8081
+server:
+  port: 8080

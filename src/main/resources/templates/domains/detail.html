@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page(title='Domain', content=~{::main})}">
+<main>
+  <h1>Domain health</h1>
+  <div data-vue="DeliverabilityChart" th:attr="data-stats=${#strings.toString(stats)}"></div>
+</main>
+</html>

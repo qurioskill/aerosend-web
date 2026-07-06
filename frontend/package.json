@@ -1,0 +1,19 @@
+{
+  "name": "aerosend-web-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "vue": "^3.4.38",
+    "chart.js": "^4.4.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.2"
+  }
+}
