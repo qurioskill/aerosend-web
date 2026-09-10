@@ -4,3 +4,4 @@
 - Burn badge colours match design
 - Add mailbox list page
 - Fix chart tooltip percent formatting
+- Sequencer connect flow copy tweaks
