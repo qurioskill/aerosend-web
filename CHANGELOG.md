@@ -6,3 +6,4 @@
 - Fix chart tooltip percent formatting
 - Sequencer connect flow copy tweaks
 - Lazy-load chart.js
+- Domain detail: 14 day default window
