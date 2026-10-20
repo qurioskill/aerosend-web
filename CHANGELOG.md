@@ -7,3 +7,4 @@
 - Sequencer connect flow copy tweaks
 - Lazy-load chart.js
 - Domain detail: 14 day default window
+- Upgrade Vite to 5.4
