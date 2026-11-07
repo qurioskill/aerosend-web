@@ -4,12 +4,11 @@
 <main>
   <h1>Domains</h1>
   <table>
-    <thead><tr><th>Domain</th><th>DNS</th><th>Status</th></tr></thead>
+    <thead><tr><th>Domain</th><th>DNS</th></tr></thead>
     <tbody>
       <tr th:each="d : ${domains}">
         <td><a th:href="@{/domains/{id}(id=${d.id})}" th:text="${d.name}"></a></td>
         <td th:text="${d.dnsVerified} ? 'Verified' : 'Pending'"></td>
-        <td><div data-vue="BurnStatusBadge" th:attr="data-status=${d.burnStatus}"></div></td>
       </tr>
     </tbody>
   </table>

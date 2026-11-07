@@ -6,5 +6,7 @@ spring:
 aerosend:
   core-api:
     base-url: http://localhost:8081
+    connect-timeout: 2s
+    read-timeout: 5s
 server:
   port: 8080

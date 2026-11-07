@@ -3,6 +3,6 @@
       th:replace="~{layout :: page(title='Domain', content=~{::main})}">
 <main>
   <h1>Domain health</h1>
-  <div data-vue="DeliverabilityChart" th:attr="data-stats=${#strings.toString(stats)}"></div>
+  <div data-vue="DeliverabilityChart" th:attr="data-stats=${statsJson}"></div>
 </main>
 </html>

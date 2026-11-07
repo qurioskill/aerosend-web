@@ -3,13 +3,61 @@
       th:replace="~{layout :: page(title='Dashboard', content=~{::main})}">
 <main>
   <h1>Deliverability overview</h1>
-  <p><strong th:text="${#lists.size(domains)}">0</strong> domains,
-     <strong th:text="${atRisk}">0</strong> at risk of burning.</p>
-  <ul class="domain-list">
-    <li th:each="d : ${domains}">
-      <a th:href="@{/domains/{id}(id=${d.id})}" th:text="${d.name}">example.com</a>
-      <div data-vue="BurnStatusBadge" th:attr="data-status=${d.burnStatus}"></div>
-    </li>
-  </ul>
+
+  <p th:if="${#lists.isEmpty(domains)}">No domains yet.</p>
+
+  <th:block th:if="${!#lists.isEmpty(domains) and figuresUnavailable}">
+    <p>Figures are unavailable right now</p>
+    <ul class="domain-list">
+      <li th:each="d : ${domains}">
+        <a th:href="@{/domains/{id}(id=${d.id})}" th:text="${d.name}">example.com</a>
+      </li>
+    </ul>
+  </th:block>
+
+  <th:block th:if="${!#lists.isEmpty(domains) and !figuresUnavailable}">
+    <p th:if="${table.dataThrough != null}">Data through <span th:text="${table.dataThrough}">2026-11-04</span></p>
+
+    <th:block th:unless="${#lists.isEmpty(table.sorted)}">
+      <p>Sorted by bounce rate, last 3 complete days</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th>Bounce rate, last 3 days</th>
+            <th>Bounce rate, 14 days</th>
+            <th>Reply rate, 14 days</th>
+            <th>Sent, 14 days</th>
+            <th>Latest placement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="row : ${table.sorted}">
+            <td><a th:href="@{/domains/{id}(id=${row.id})}" th:text="${row.name}">example.com</a></td>
+            <td th:text="${#numbers.formatPercent(row.bounceRate3Days, 1, 1)}">0.0%</td>
+            <td th:text="${#numbers.formatPercent(row.bounceRate14Days, 1, 1)}">0.0%</td>
+            <td th:text="${#numbers.formatPercent(row.replyRate14Days, 1, 1)}">0.0%</td>
+            <td th:text="${row.sent14Days}">0</td>
+            <td th:text="${row.latestPlacement != null}
+                         ? ${#numbers.formatPercent(row.latestPlacement, 1, 1) + ' on ' + row.latestPlacementDay}
+                         : 'Not tested'">Not tested</td>
+          </tr>
+        </tbody>
+      </table>
+    </th:block>
+
+    <th:block th:unless="${#lists.isEmpty(table.notEnoughData)}">
+      <h2>Not enough data</h2>
+      <table>
+        <thead><tr><th>Domain</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr th:each="row : ${table.notEnoughData}">
+            <td><a th:href="@{/domains/{id}(id=${row.id})}" th:text="${row.name}">example.com</a></td>
+            <td th:text="${row.reason}">No sends in 14 days</td>
+          </tr>
+        </tbody>
+      </table>
+    </th:block>
+  </th:block>
 </main>
 </html>

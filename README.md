@@ -19,5 +19,7 @@ Customer-facing app at **app.aerosend.io**: sign-up, domain ordering (batches of
 
 ```bash
 (cd frontend && npm install && npm run dev)   # Vite on :5173, proxied
-mvn spring-boot:run                            # :8080, expects core on :8081
+mvn spring-boot:run -Dspring-boot.run.profiles=local   # :8080, expects core on :8081
 ```
+
+The `local` profile acts as customer 1 (`aerosend.local.customer-id` in `application-local.yml`). Without it, `/` and `/domains` return 400, because the app has no customer sign-in yet. Spring's default login still applies: the username is `user` and the password is printed at startup.

@@ -1,5 +1,7 @@
 package io.aerosend.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.aerosend.web.client.CoreApiClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 public class DomainsController {
 
     private final CoreApiClient core;
+    private final ObjectMapper json;
 
-    public DomainsController(CoreApiClient core) { this.core = core; }
+    public DomainsController(CoreApiClient core, ObjectMapper json) {
+        this.core = core;
+        this.json = json;
+    }
 
     @GetMapping("/domains")
     public String list(@RequestAttribute("customerId") long customerId, Model model) {
@@ -21,9 +27,9 @@ public class DomainsController {
     }
 
     @GetMapping("/domains/{id}")
-    public String detail(@PathVariable long id, Model model) {
+    public String detail(@PathVariable long id, Model model) throws JsonProcessingException {
         model.addAttribute("domainId", id);
-        model.addAttribute("stats", core.stats(id, 14));
+        model.addAttribute("statsJson", json.writeValueAsString(core.stats(id, 14)));
         return "domains/detail";
     }
 }
